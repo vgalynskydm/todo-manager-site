@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="styles/bundle.min.css">
+		<link rel="shortcut icon" href="assets/favicon.png" type="image/png">
+		<title>Your TODO manager</title>
+	</head>
+	<body>
+		<div class="app">
+			<h1 class="app__title">TODO</h1>
+
+			<div class="app__form">
+				<div class="app__tasks" v-if="user.isLogin">
+					<div class="app__task">
+						<input class="app__input" type="text" v-model.trim="newTask" v-on:keyup.enter="addTask" placeholder="Что нужно сделать?" />
+					</div>
+
+					<div class="app__control">
+						<label class="app__label">Пользователь: <span class="app__span _user">{{ user.email }}</span></label>
+						<button class="app__button _signOut" v-on:click="onSignout">Выйти</button>
+					</div>
+
+					<div class="app__sort">
+						<a class="app__link" href="#">Все({{ tasks.length }})</a>
+						<a class="app__link" href="#">Сделать({{ countActive }})</a>
+						<a class="app__link" href="#">Выполнено({{ countDone }})</a>
+						<span class="app__icon _trash" v-on:click="removeAllTasks"></span>
+					</div>
+
+					<ul class="app__list">
+						<li class="app__item" v-for="(task, index) in tasks" v-bind:key="index" v-if="tasks.length > 0">
+							<div class="app__item-info">
+								<input class="app__checkbox" type="checkbox" v-bind:id="task['.key']" v-bind:checked="task.completed" v-on:click="changeState(task)" />
+								<label class="app__label" v-bind:for="task['.key']">{{ task.text }}</label>
+							</div>
+							<div class="app__item-control">
+								<button class="app__button _remove" v-on:click="removeTask(task)">Удалить</button>
+							</div>
+						</li>
+						<li class="app__item _message" v-if="tasks.length === 0">
+							Нет задач
+						</li>
+					</ul>
+				</div>
+				<div class="app__auth" v-else>
+					<input class="app__input _auth" type="text" placeholder="Введите email" v-model="email" v-on:keyup.enter="onLogin" />
+					<input class="app__input _auth" type="password" placeholder="Введите пароль" v-model="password" v-on:keyup.enter="onLogin" />
+					<button class="app__button _login _auth" v-on:click="onLogin">Войти</button>
+					<button class="app__button _signup _auth" v-on:click="onSignup">Зарегистрироваться</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://unpkg.com/vue"></script>
+		<script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+		<script src="scripts/bundle.min.js"></script>
+	</body>
+</html>

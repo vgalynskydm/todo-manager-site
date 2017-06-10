@@ -1,0 +1,20 @@
+@font-face {
+	font-family: "Codystar-Light";
+	src: url("../fonts/Codystar-Light.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Codystar-Regular";
+	src: url("../fonts/Codystar-Regular.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "RobotoCondensed-Regular";
+	src: url("../fonts/RobotoCondensed-Regular.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
